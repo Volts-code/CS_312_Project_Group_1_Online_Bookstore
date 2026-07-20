@@ -1,9 +1,59 @@
-body{
-  font-family:Arial, sans-serif;
-  margin:0;
-  background:#f4f4f4;
+body {
+    font-family:Arial, sans-serif;
+    margin:0;
+    background:#f4f4f4;
 }
 
+.signupHeader {
+    margin-top: 0;
+}
+
+.signupLabel {
+    color: grey;
+    margin-bottom: 0;
+}
+
+.signupInput {
+    margin-bottom: 10px;
+}
+
+.loginHeader {
+    margin-top: 0;
+}
+
+.loginLabel {
+    color: grey;
+    margin-bottom: 0;
+}
+
+.loginInput {
+    margin-bottom: 10px;
+}
+
+#root {
+    display: grid;
+    place-content: center;
+}
+
+#signup {
+    margin: 33vh;
+    background-color: white;
+    padding: 30px;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: gray;
+}
+
+#login {
+    margin: 33vh;
+    background-color: white;
+    padding: 30px;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: gray;
+}
 
 .books-page h1{
   background:#1976d2;

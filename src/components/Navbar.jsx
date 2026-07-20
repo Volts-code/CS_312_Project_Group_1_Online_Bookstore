@@ -15,6 +15,14 @@ function Navbar(){
             <Link to="/contact">
             Contact
             </Link>
+
+            <Link to="/signup">
+            Sign In
+            </Link>
+
+            <Link to="/login">
+            Log In
+            </Link>
       </div>
 
     </nav>
