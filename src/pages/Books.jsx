@@ -3,7 +3,8 @@ import BookCard from "../components/BookCard";
 import SearchBar from "../components/SearchBar";
 import FilterBar from "../components/FilterBar";
 
-function Books() {
+function Books( props ) {
+  alert(`${props.currentUser.username}, ${props.currentUser.preferences}`);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const books = [

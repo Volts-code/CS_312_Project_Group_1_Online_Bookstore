@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 const url = "http://localhost:5000/";
 
-function Login(){
+function Login( props ){
     const [user, setUser] = useState({
         username: "",
         password: ""
@@ -36,6 +36,10 @@ function Login(){
         const response = await axios.post( url + "login", user);
 
         if( response.data.success ){
+            props.setCurrentUser({
+                username: response.data.username,
+                preferences: response.data.preferences
+            });
             navigate("/");
         }
         else{
