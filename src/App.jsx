@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Books from "./pages/Books";
@@ -6,6 +7,11 @@ import Signup from './pages/Signup.jsx';
 import Login from './pages/Login.jsx';
 
 function App() {
+  const [ currentUser, setCurrentUser ] = useState({
+    username: "test",
+    preferences: []
+  });
+
   return (
 
     <BrowserRouter>
@@ -21,12 +27,12 @@ function App() {
         
         <Route 
           path="/login"
-          element={<Login />}
+          element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
         />
         
         <Route
           path="/"
-          element={<Books />}
+          element={<Books currentUser={currentUser}/>}
         />
           
         <Route
