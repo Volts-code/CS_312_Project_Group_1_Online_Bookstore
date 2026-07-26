@@ -153,6 +153,84 @@ app.get("/books", async (req, res) => {
 });
 
 // GET REVIEWS
+app.get("/reviews", async (req, res) => {
+    const book_id = req.body.book_id;
+    const numOfReviews = 10;
+
+    try {
+        const response = await db.query(
+            "SELECT * FROM reviews WHERE review_id = $1 LIMIT $2",
+            [book_id, numOfReviews]
+        );
+
+        res.json({
+            "success": true,
+            "reviews": response.rows
+        })
+    }
+    catch (error) {
+        res.json({"success": false});
+    }
+});
+
+// ADD REVIEWS
+app.post("/reviews", async (req, res) => {
+    const book_id = req.body.book_id;
+    const author_id = req.body.author_id;
+    const rating = req.body.rating;
+    const description = req.body.description;
+
+    try {
+        const response = await db.query(
+            "INSERT INTO reviews (rating, description, author_id, book_id) VALUES ($1, $2, $3, $4)",
+            [rating, description, author_id, book_id]
+        );
+
+        res.json({"success": true});
+    }
+    catch(error) {
+        res.json({"success": false});
+    }
+});
+
+// DELETE REVIEW
+app.post("/delete_review", async (req, res) => {
+    const review_id = req.body.review_id;
+    const username = req.body.username;
+
+    try {
+        const response = await db.query(
+            "DELETE FROM reviews WHERE review_id = $1 AND author_id = $2",
+            [review_id, username]
+        );
+
+        res.json({"success": true});
+    }
+    catch (error) {
+        res.json({"success": false});
+    }
+});
+
+// UPDATE REVIEW
+app.post("/update_review", async (req, res) => {
+    const review_id = req.body.review_id;
+    const username = req.body.username;
+    const newRating = req.body.rating;
+    const newDescription = req.body.description;
+
+    try {
+        const response = await db.query(
+            "UPDATE reviews SET rating = $1, description = $2 WHERE review_id = $3 AND author_id = $4",
+            [newRating, newDescription, review_id, username]
+        );
+
+        res.json({"success": true});
+    }
+    catch (error) {
+        res.json({"success": false});
+    }
+})
+
 
 ///////////////// START SERVER /////////////////
 
