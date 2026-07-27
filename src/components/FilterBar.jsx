@@ -1,16 +1,12 @@
-function FilterBar({filter,setFilter}){
-    return (
-        <select
-        value={filter}
-        onChange={(e)=>setFilter(e.target.value)}
-        >
-
-            <option>All</option>
-            <option>Fantasy</option>
-            <option>Mystery</option>
-            <option>Romance</option>
-
-        </select>
-    );
+function FilterBar({ filter, setFilter, genres }) {
+  return (
+    <label className="filter-field">
+      <span>Genre</span>
+      <select value={filter} onChange={(event) => setFilter(event.target.value)}>
+        {genres.map((genre) => <option key={genre}>{genre}</option>)}
+      </select>
+    </label>
+  );
 }
+
 export default FilterBar;
