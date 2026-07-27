@@ -1,104 +1,52 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 import BookCard from "../components/BookCard";
-import SearchBar from "../components/SearchBar";
 import FilterBar from "../components/FilterBar";
+import SearchBar from "../components/SearchBar";
 
-function Books( props ) {
-  alert(`${props.currentUser.username}, ${props.currentUser.preferences}`);
+function Books() {
+  const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
-  const books = [
-    {
-      id: 1,
-      title: "Books Coming Soon",
-      author: "Unknown Author",
-      genre: "Fantasy",
-      rating: 4
-    },
-    {
-      id: 2,
-      title: "Books Coming Soon",
-      author: "Unknown Author",
-      genre: "Mystery",
-      rating: 5
-    },
-    {
-      id: 3,
-      title: "Books Coming Soon",
-      author: "Unknown Author",
-      genre: "Romance",
-      rating: 3
-    },
-    {
-      id: 4,
-      title: "Books Coming Soon",
-      author: "Unknown Author",
-      genre: "Science Fiction",
-      rating: 5
-    },
-    {
-      id: 5,
-      title: "Books Coming Soon",
-      author: "Unknown Author",
-      genre: "History",
-      rating: 4
-    },
-    {
-      id: 6,
-      title: "Books Coming Soon",
-      author: "Unknown Author",
-      genre: "Adventure",
-      rating: 5
-    }
-  ];
+  const [status, setStatus] = useState("loading");
 
-  const filteredBooks = books.filter((book)=>{
+  useEffect(() => {
+    axios.get("/books.json")
+      .then(({ data }) => { setBooks(data); setStatus("ready"); })
+      .catch(() => setStatus("error"));
+  }, []);
 
-        const matchesSearch =
-        book.title.toLowerCase()
-        .includes(search.toLowerCase()) ||
-        book.author.toLowerCase()
-        .includes(search.toLowerCase()) ||
-        book.genre.toLowerCase()
-        .includes(search.toLowerCase());
-
-        const matchesFilter =
-        filter === "All" ||
-        book.genre === filter;
-
-        return matchesSearch && matchesFilter;
-    });
-
+  const genres = useMemo(() => ["All", ...new Set(books.map((book) => book.genre))], [books]);
+  const filteredBooks = books.filter((book) => {
+    const query = search.trim().toLowerCase();
+    return (filter === "All" || book.genre === filter)
+      && [book.title, book.author, book.genre].some((value) => value.toLowerCase().includes(query));
+  });
 
   return (
-    <div className="books-page">
+    <main className="books-page">
+      <section className="hero-section">
+        <p className="eyebrow">Online Book Catalog</p>
+        <h1>Popular Books</h1>
+        <p className="hero-copy">Search for a book, filter by genre, and click a card to read reviews.</p>
+      </section>
 
-      <h1>Online Bookstore</h1>
-
-      <SearchBar 
-        search={search}
-        setSearch={setSearch}
-      />
-
-
-      <FilterBar
-        filter={filter}
-        setFilter={setFilter}
-      />
-
-
-      <div className="book-container">
-            {
-                filteredBooks.map((book)=>(
-                    <BookCard 
-                    key={book.id}
-                    book={book}
-                    />
-                ))
-            }
-      </div>
-
-    </div>
+      <section className="collection" aria-labelledby="collection-title">
+        <div className="collection-heading">
+          <div><p className="eyebrow">Book List</p><h2 id="collection-title">All Books</h2></div>
+          <p>{filteredBooks.length} {filteredBooks.length === 1 ? "book" : "books"}</p>
+        </div>
+        <div className="toolbar">
+          <SearchBar search={search} setSearch={setSearch} />
+          <FilterBar filter={filter} setFilter={setFilter} genres={genres} />
+        </div>
+        {status === "loading" && <p className="state-message">Opening the shelves…</p>}
+        {status === "error" && <p className="state-message">The books could not be loaded. Please refresh the page.</p>}
+        {status === "ready" && filteredBooks.length === 0 && <p className="state-message">No books match that search.</p>}
+        <div className="book-container">{filteredBooks.map((book) => <BookCard key={book.id} book={book} />)}</div>
+      </section>
+    </main>
   );
 }
+
 export default Books;
