@@ -1,0 +1,122 @@
+[
+  {
+    "id": "the-hobbit",
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy",
+    "year": 1937,
+    "rating": 4.8,
+    "cover": "https://covers.openlibrary.org/b/isbn/9780547928227-L.jpg",
+    "description": "Bilbo Baggins is swept from his comfortable hobbit-hole into an adventure with thirteen dwarves and a wizard, bound for a mountain guarded by a dragon.",
+    "reviews": [
+      { "id": 1, "name": "Maya R.", "rating": 5, "text": "Warm, funny, and adventurous. It still feels like the perfect doorway into fantasy." },
+      { "id": 2, "name": "Eli T.", "rating": 4, "text": "The songs slowed me down at first, but Bilbo's growth won me over completely." },
+      { "id": 3, "name": "Jordan K.", "rating": 5, "text": "A wonderfully cozy quest with just the right amount of danger." }
+    ]
+  },
+  {
+    "id": "circe",
+    "title": "Circe",
+    "author": "Madeline Miller",
+    "genre": "Historical Fiction",
+    "year": 2018,
+    "rating": 4.2,
+    "cover": "https://ia600505.us.archive.org/view_archive.php?archive=/35/items/l_covers_0014/l_covers_0014_41.zip&file=0014413118-L.jpg",
+    "description": "In the house of Helios, god of the sun and mightiest of the Titans, a daughter is born. But Circe is a strange child--not powerful, like her father, nor viciously alluring like her mother.",
+    "reviews": [
+      { "id": 1, "name": "Nina P.", "rating": 5, "text": "There’s nothing I love more than a book by a woman about a woman, so Circe certainly fits the bill. " },
+      { "id": 2, "name": "Cam B.", "rating": 4, "text": "This is the pièce de résistance I’ve been searching for my entire life. Not only did I fall in love with this story, I predict that this will be the best book I’ll read all year. This book is about healing and doing what it takes to come into your own. " },
+      { "id": 3, "name": "Renee S.", "rating": 5, "text": "This was one of the most amazing, beautiful, intricate, captivating books I have had the pleasure of reading in my entire life. " }
+    ]
+  },
+  {
+    "id": "project-hail-mary",
+    "title": "Project Hail Mary",
+    "author": "Andy Weir",
+    "genre": "Science Fiction",
+    "year": 2021,
+    "rating": 4.7,
+    "cover": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
+    "description": "A lone astronaut wakes without his memories and must solve an impossible scientific mystery to give humanity one last chance.",
+    "reviews": [
+      { "id": 1, "name": "Andre L.", "rating": 5, "text": "Big science, bigger heart. The central friendship made this one special." },
+      { "id": 2, "name": "Sam D.", "rating": 5, "text": "Every chapter ends with a new problem, and somehow the solutions stay fun." },
+      { "id": 3, "name": "Priya N.", "rating": 4, "text": "Some technical passages are dense, but the payoff is absolutely worth it." }
+    ]
+  },
+  {
+    "id": "the-thursday-murder-club",
+    "title": "The Thursday Murder Club",
+    "author": "Richard Osman",
+    "genre": "Mystery",
+    "year": 2020,
+    "rating": 4.3,
+    "cover": "https://covers.openlibrary.org/b/isbn/9781984880987-L.jpg",
+    "description": "Four clever residents of a retirement village meet weekly to investigate cold cases—until a real murder arrives on their doorstep.",
+    "reviews": [
+      { "id": 1, "name": "Owen F.", "rating": 4, "text": "Charming, twisty, and full of characters I would happily visit again." },
+      { "id": 2, "name": "Lou A.", "rating": 5, "text": "The humor is gentle, but the mystery still has real bite." },
+      { "id": 3, "name": "Dani C.", "rating": 4, "text": "A cozy mystery with a surprisingly moving view of friendship and age." }
+    ]
+  },
+  {
+    "id": "educated",
+    "title": "Educated",
+    "author": "Tara Westover",
+    "genre": "Memoir",
+    "year": 2018,
+    "rating": 4.5,
+    "cover": "https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg",
+    "description": "A woman raised in an isolated survivalist family recounts how education opened a path toward knowledge, independence, and a new understanding of home.",
+    "reviews": [
+      { "id": 1, "name": "Tess W.", "rating": 5, "text": "A difficult, clear-eyed memoir about the cost of becoming your own person." },
+      { "id": 2, "name": "Marcus H.", "rating": 4, "text": "Intense and beautifully written. I had to pause often to absorb it." },
+      { "id": 3, "name": "Jo V.", "rating": 5, "text": "Her account of learning to trust her own memory is unforgettable." }
+    ]
+  },
+  {
+    "id": "the-midnight-library",
+    "title": "The Midnight Library",
+    "author": "Matt Haig",
+    "genre": "Contemporary Fiction",
+    "year": 2020,
+    "rating": 4.1,
+    "cover": "https://covers.openlibrary.org/b/isbn/9780525559474-L.jpg",
+    "description": "Between life and death stands a library filled with alternate lives, offering Nora Seed the chance to discover what makes a life worth living.",
+    "reviews": [
+      { "id": 1, "name": "Avery M.", "rating": 4, "text": "A hopeful and accessible story about regret, choice, and small joys." },
+      { "id": 2, "name": "Keisha G.", "rating": 4, "text": "The premise is simple, but several of Nora's possible lives really stayed with me." },
+      { "id": 3, "name": "Ben I.", "rating": 3, "text": "A little direct with its message, though ultimately comforting." }
+    ]
+  },
+  {
+    "id": "becoming",
+    "title": "Becoming",
+    "author": "Michelle Obama",
+    "genre": "Biography",
+    "year": 2018,
+    "rating": 4.7,
+    "cover": "https://covers.openlibrary.org/b/isbn/9781524763138-L.jpg",
+    "description": "Michelle Obama reflects on her childhood, career, family, and years in the White House with candor, warmth, and an invitation to keep becoming.",
+    "reviews": [
+      { "id": 1, "name": "Imani J.", "rating": 5, "text": "Thoughtful and personal, especially when she writes about ambition and family." },
+      { "id": 2, "name": "Chris E.", "rating": 4, "text": "The Chicago chapters were my favorite—grounded, vivid, and generous." },
+      { "id": 3, "name": "Fatima Q.", "rating": 5, "text": "It feels less like a victory lap and more like an honest conversation." }
+    ]
+  },
+  {
+    "id": "the-song-of-achilles",
+    "title": "The Song of Achilles",
+    "author": "Madeline Miller",
+    "genre": "Romance",
+    "year": 2011,
+    "rating": 4.6,
+    "cover": "https://covers.openlibrary.org/b/isbn/9780062060624-L.jpg",
+    "description": "Patroclus recounts his bond with the legendary Achilles, from their youth together to the glory and tragedy awaiting them at Troy.",
+    "reviews": [
+      { "id": 1, "name": "Sofia R.", "rating": 5, "text": "Lyrical, romantic, and devastating even when you already know the ending." },
+      { "id": 2, "name": "Theo P.", "rating": 4, "text": "The mythology feels immediate because the emotional center is so human." },
+      { "id": 3, "name": "June C.", "rating": 5, "text": "Miller made an ancient story feel startlingly intimate." }
+    ]
+  }
+]
