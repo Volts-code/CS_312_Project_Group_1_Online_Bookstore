@@ -16,7 +16,7 @@ CREATE TABLE books (
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
     genre VARCHAR(255) NOT NULL,
-    rating INT NOT NULL,
+    rating DECIMAL(2,1) NOT NULL,
     cover_img TEXT,
     description TEXT
 );

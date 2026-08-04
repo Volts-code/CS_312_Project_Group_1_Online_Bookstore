@@ -77,15 +77,15 @@ app.post("/login", async (req, res) => {
 });
 
 // GET BOOK LIST
-async function getBooks( preferences = [], numOfBooks = -1, startingBookId = 1 ){
+async function getBooks( preferences = [], numOfBooks = -1){
     let query = {};
 
     // if no preferences and no specified number of books, 
     //   get all books after specified book_id (default of 1)
     if( numOfBooks === -1 && preferences.length === 0 ){
         query = {
-            statement: "SELECT * FROM books WHERE book_id >= $1",
-            parameters: [startingBookId]
+            statement: "SELECT * FROM books",
+            parameters: []
         };
     }
     // if no specified number of books,
@@ -93,24 +93,24 @@ async function getBooks( preferences = [], numOfBooks = -1, startingBookId = 1 )
     //   (default of 1)
     else if( numOfBooks === -1 ){
         query = {
-            statement: "SELECT * FROM books WHERE book_id >= $1 AND genre = ANY($2)",
-            parameters: [startingBookId, preferences]
+            statement: "SELECT * FROM books WHERE genre = ANY($1)",
+            parameters: [preferences]
         };
     }
     // if no specified preferences,
     //   get {numOfBooks} number of books, starting at startingBookId (default of 1)
     else if( preferences.length === 0 ){
         query = {
-            statement: "SELECT * FROM books WHERE book_id >= $1 LIMIT $2",
-            parameters: [startingBookId, numOfBooks]
+            statement: "SELECT * FROM books LIMIT $1",
+            parameters: [numOfBooks]
         };
     }
     // get {numOfBooks} number of books that match the at least 1 specified preference
     //   starting at  startingBookId (default of 1)
     else{
         query = {
-            statement: "SELECT * FROM books WHERE book_id >= $1 AND genre = ANY($2) LIMIT $3",
-            parameters: [startingBookId, preferences, numOfBooks]
+            statement: "SELECT * FROM books WHERE genre = ANY($1) LIMIT $2",
+            parameters: [preferences, numOfBooks]
         };
     }
 
@@ -131,42 +131,93 @@ async function getBooks( preferences = [], numOfBooks = -1, startingBookId = 1 )
     
 }
 
+async function getBook( book_id ){
+    try {
+        const response = await db.query(
+            "SELECT * FROM books WHERE book_id = $1",
+            [book_id]
+        );
+
+        return {
+            "success": true,
+            "book": response.rows[0]
+        };
+    }
+    catch (error){
+        return {
+            "success": false
+        };
+    }
+}
 
 app.get("/books", async (req, res) => {
-    const preferences = (
-        typeof req.body.preferences === 'undefined' 
-        ? []
-        : req.body.preferences
-    );
-    const startingId = (
-        typeof req.body.startingId === 'undefined' 
-        ? 1
-        : req.body.startingId
-    );
-    const numOfBooks = (
-        typeof req.body.numOfBooks === 'undefined' 
-        ? -1
-        : req.body.numOfBooks
-    );
+    let preferences, numOfBooks, book_id;
 
-    return getBooks( preferences, numOfBooks, startingId );
+    if( typeof req.body === 'undefined' ){
+        preferences = [];
+        numOfBooks = -1;
+    }
+    else{
+        preferences = (
+            typeof req.body.preferences === 'undefined' 
+            ? []
+            : req.body.preferences
+        );
+        numOfBooks = (
+            typeof req.body.numOfBooks === 'undefined' 
+            ? -1
+            : req.body.numOfBooks
+        );
+        book_id = req.body.book_id;
+    }
+    if( typeof book_id !== 'undefined' ){
+        const book = await getBook( book_id );
+
+        res.json(book.book);
+    }
+    else{
+        const books = await getBooks( preferences, numOfBooks );
+
+        res.json(books.books);
+    }
+});
+
+app.get("/book/:book_id", async (req, res) => {
+    const book_id = req.params.book_id;
+
+    const book = await getBook( book_id );
+
+    res.json(book.book); 
 });
 
 // GET REVIEWS
-app.get("/reviews", async (req, res) => {
-    const book_id = req.body.book_id;
-    const numOfReviews = 10;
+function getRating( ratings ){
+    const rating = ratings.reduce((total, current) => {
+        return total + current.rating;
+    }, 0);
+    return Math.round(rating / ratings.length * 10) / 10;
+}
+
+app.get("/reviews/:book_id", async (req, res) => {
+    const book_id = req.params.book_id;
 
     try {
+        const allRatings = await db.query(
+            "SELECT author_id, rating FROM reviews WHERE book_id = $1",
+            [book_id]
+        );
+        const rating = getRating( allRatings.rows );
+
         const response = await db.query(
-            "SELECT * FROM reviews WHERE review_id = $1 LIMIT $2",
-            [book_id, numOfReviews]
+            "SELECT * FROM reviews WHERE book_id = $1",
+            [book_id]
         );
 
         res.json({
             "success": true,
-            "reviews": response.rows
-        })
+            "reviews": response.rows,
+            "rating": rating
+        });
     }
     catch (error) {
         res.json({"success": false});
@@ -179,13 +230,43 @@ app.post("/reviews", async (req, res) => {
     const author_id = req.body.author_id;
     const rating = req.body.rating;
     const description = req.body.description;
-
+    
     try {
-        const response = await db.query(
-            "INSERT INTO reviews (rating, description, author_id, book_id) VALUES ($1, $2, $3, $4)",
-            [rating, description, author_id, book_id]
+        console.log(`${author_id} ${book_id}`);
+        const exists = await db.query(
+            "SELECT * FROM reviews WHERE author_id = $1 AND book_id = $2",
+            [author_id, book_id]
+        );
+        
+        let response;
+        
+        if( exists.rowCount === 0 ){
+            console.log(`create: ${[rating, description, author_id, book_id]}`);
+            response = await db.query(
+                "INSERT INTO reviews (rating, description, author_id, book_id) VALUES ($1, $2, $3, $4)",
+                [rating, description, author_id, book_id]
+            );
+        }
+        else{
+            console.log('update');
+            response = await db.query(
+                "UPDATE reviews SET rating = $1, description = $2 WHERE author_id = $3 AND book_id = $4",
+                [rating, description, author_id, book_id]
+            );
+        }
+
+        const reviews = await db.query(
+            "SELECT rating FROM reviews WHERE book_id = $1",
+            [book_id]
         );
 
+        let bookRating = getRating( reviews.rows );
+        console.log(bookRating);
+        response = await db.query(
+            "UPDATE books SET rating = $1 WHERE book_id = $2",
+            [bookRating, book_id]
+        );
+        
         res.json({"success": true});
     }
     catch(error) {
