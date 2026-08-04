@@ -55,7 +55,7 @@ function Login( props ){
                 <input className="loginInput" type="text" onChange={onChange} name="username" placeholder="Enter Your Username" />
                 <h5 className="loginLabel">Password</h5>
                 <input className="loginInput" type="password" onChange={onChange} name="password" placeholder="Enter Your Password" /><br/><br/>
-                <button class="loginBtn" type="submit">Log In</button>
+                <button className="loginBtn" type="submit">Log In</button>
             </form>
             <p>Don't Have An Account?</p>
             <Link to="/signup">Sign up here</Link>
