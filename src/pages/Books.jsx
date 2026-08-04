@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import BookCard from "../components/BookCard";
 import FilterBar from "../components/FilterBar";
 import SearchBar from "../components/SearchBar";
+const url = "http://localhost:5000/"
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -11,7 +12,7 @@ function Books() {
   const [status, setStatus] = useState("loading");
 
   useEffect(() => {
-    axios.get("/books.json")
+    axios.get(url + "books")
       .then(({ data }) => { setBooks(data); setStatus("ready"); })
       .catch(() => setStatus("error"));
   }, []);
@@ -43,7 +44,7 @@ function Books() {
         {status === "loading" && <p className="state-message">Opening the shelves…</p>}
         {status === "error" && <p className="state-message">The books could not be loaded. Please refresh the page.</p>}
         {status === "ready" && filteredBooks.length === 0 && <p className="state-message">No books match that search.</p>}
-        <div className="book-container">{filteredBooks.map((book) => <BookCard key={book.id} book={book} />)}</div>
+        <div className="book-container">{filteredBooks.map((book) => <BookCard key={book.book_id} book={book} />)}</div>
       </section>
     </main>
   );

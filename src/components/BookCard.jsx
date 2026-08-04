@@ -2,13 +2,12 @@ import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
 
 function BookCard({ book }) {
-  const bookUrl = `/books/${book.id}`;
-
+  const bookUrl = `/books/${book.book_id}`;
   return (
     <article className="book-card">
       <Link className="book-card-cover-link" to={bookUrl}>
         <div className="cover-wrap">
-          <img src={book.cover} alt={`${book.title} book cover`} loading="lazy" />
+          <img src={book.cover_img} alt={`${book.title} book cover`} loading="lazy" />
           <span className="genre-pill">{book.genre}</span>
         </div>
       </Link>
@@ -21,7 +20,7 @@ function BookCard({ book }) {
 
         <div className="card-rating">
           <StarRating value={book.rating} readOnly label={`${book.title} rating`} />
-          <strong>{book.rating.toFixed(1)}</strong>
+          <strong>{book.rating}</strong>
         </div>
 
         <Link className="book-card-link" to={bookUrl}>View Book</Link>

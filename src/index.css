@@ -316,6 +316,52 @@ body {
   line-height: 1.5;
 }
 
+.review-form,
+#login,
+#signup {
+  max-width: 560px;
+  margin: 20px 0;
+  padding: 20px;
+  background: white;
+  border: 1px solid #aaa;
+}
+
+#login,
+#signup {
+  margin: 40px auto;
+}
+
+.review-form textarea,
+.loginInput,
+.signupInput {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aaa;
+}
+
+.review-form textarea {
+  min-height: 110px;
+  margin: 8px 0 12px;
+  resize: vertical;
+}
+
+.review-form > button,
+#login button,
+#signup button {
+  padding: 10px 16px;
+  border: 0;
+  background: #1976d2;
+  color: white;
+  cursor: pointer;
+}
+
+.signin-prompt {
+  padding: 15px;
+  background: white;
+  border: 1px solid #aaa;
+}
+
 /* Contact page */
 .contact-page {
   display: flex;
